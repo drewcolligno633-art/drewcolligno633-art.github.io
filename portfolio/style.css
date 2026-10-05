@@ -1,0 +1,199 @@
+/* ==========================================================================
+   Portfolio stylesheet
+   Design idea: pages read like engineering drawings. Each project carries a
+   "title block" (the bordered info box in the corner of a drawing), joints in
+   the hero drawing have center marks, and the typeface's width axis carries
+   the hierarchy: expanded for headings, normal for reading, narrow for the
+   drawing metadata.
+   ========================================================================== */
+
+:root {
+  --paper: #edeff1;      /* page background, cool drafting-film grey */
+  --panel: #f8f9fa;      /* figure frames and title-block cells */
+  --ink: #17202b;        /* main text, graphite navy */
+  --ink-2: #4f5b69;      /* secondary text */
+  --rule: #bfc6cf;       /* light lines */
+  --orange: #ee7203;     /* industrial-robot orange, graphics only */
+  --orange-ink: #a34c00; /* darker orange that is readable as text */
+  --fill-bg: #fff1b8;    /* highlight for text you still need to fill in */
+
+  --font: "Archivo", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+
+  --measure: 68ch;
+  --wide: 1120px;
+
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #141b24;
+    --panel: #1b2430;
+    --ink: #e3e7ec;
+    --ink-2: #9aa6b4;
+    --rule: #33404f;
+    --orange: #ff8a1f;
+    --orange-ink: #ffa552;
+    --fill-bg: #5a4a00;
+  }
+}
+
+*, *::before, *::after { box-sizing: inherit; }
+
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-variation-settings: "wdth" 100;
+  -webkit-text-size-adjust: 100%;
+}
+
+img, video { max-width: 100%; height: auto; display: block; }
+
+a { color: inherit; text-decoration-color: var(--orange); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { color: var(--orange-ink); }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 2px; }
+
+code { font-family: var(--mono); font-size: 0.88em; background: var(--panel); border: 1px solid var(--rule); padding: 0.05em 0.35em; border-radius: 3px; }
+
+/* Text you still need to replace. Search the files for class="fill". */
+.fill { background: var(--fill-bg); outline: 1px dashed var(--orange-ink); outline-offset: 1px; border-radius: 2px; padding: 0 0.2em; }
+
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 1rem; top: 1rem; background: var(--panel); padding: 0.5rem 1rem; z-index: 10; }
+
+/* ---------- Layout ---------- */
+.wrap { max-width: var(--wide); margin: 0 auto; padding: 0 clamp(1.1rem, 4vw, 2.5rem); }
+
+/* ---------- Site header ---------- */
+.site-head { padding: 1.4rem 0; }
+.site-head .wrap { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; align-items: baseline; justify-content: space-between; }
+.site-name { font-weight: 700; font-variation-settings: "wdth" 112; text-decoration: none; font-size: 1.05rem; }
+.site-nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; }
+.site-nav a { text-decoration: none; color: var(--ink-2); font-variation-settings: "wdth" 85; font-weight: 500; }
+.site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--orange); }
+
+/* ---------- Headings ---------- */
+h1, h2, h3 { line-height: 1.12; margin: 0; font-weight: 750; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.5rem, 6.4vw, 4.6rem); font-variation-settings: "wdth" 118; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.5rem, 2.8vw, 2rem); font-variation-settings: "wdth" 112; }
+h3 { font-size: 1.2rem; font-variation-settings: "wdth" 108; }
+
+/* ---------- Home: hero ---------- */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(1rem, 4vw, 3rem); align-items: center; padding-top: clamp(1.5rem, 5vw, 4rem); padding-bottom: clamp(2rem, 5vw, 4rem); }
+.hero-text p { font-size: clamp(1.1rem, 1.7vw, 1.3rem); color: var(--ink-2); max-width: 34ch; margin: 1.25rem 0 0; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-top: 1.75rem; font-weight: 600; }
+
+.drawing { position: relative; }
+.drawing svg { width: 100%; height: auto; display: block; }
+.drawing .readout { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-2); margin: 0.4rem 0 0; line-height: 1.5; min-height: 3em; }
+.drawing .hint { font-size: 0.85rem; color: var(--ink-2); font-variation-settings: "wdth" 80; margin: 0.15rem 0 0; }
+
+/* SVG drawing colors */
+.ln-grid { stroke: var(--rule); stroke-width: 0.5; }
+.ln-ground { stroke: var(--ink); stroke-width: 1.5; }
+.ln-hatch { stroke: var(--ink-2); stroke-width: 0.8; }
+.link-body { fill: var(--orange); stroke: var(--ink); stroke-width: 1.6; }
+.base-body { fill: var(--panel); stroke: var(--ink); stroke-width: 1.6; }
+.ln-center { stroke: var(--ink); stroke-width: 0.7; stroke-dasharray: 14 3 2 3; fill: none; }
+.joint { fill: var(--panel); stroke: var(--ink); stroke-width: 1.6; }
+.cmark { stroke: var(--ink); stroke-width: 0.8; }
+.jaw { fill: var(--panel); stroke: var(--ink); stroke-width: 1.4; }
+.target { stroke: var(--orange-ink); stroke-width: 1.2; fill: none; }
+
+/* ---------- Home: sections ---------- */
+.section { padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
+.section > .wrap > h2 { margin-bottom: 2rem; }
+
+.project-list { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(2rem, 4vw, 3rem); }
+.project-row { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: clamp(1rem, 3vw, 2.25rem); align-items: start; }
+.project-row.lead { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+.project-row.lead h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); }
+.project-row h3 a { text-decoration: none; }
+.project-row h3 a:hover { text-decoration: underline; text-decoration-color: var(--orange); }
+.project-row p { margin: 0.6rem 0 0; max-width: 58ch; }
+.project-row .meta { color: var(--ink-2); font-size: 0.92rem; font-variation-settings: "wdth" 80; margin-top: 0.5rem; }
+.thumb { display: block; text-decoration: none; color: var(--ink-2); border: 1px solid var(--rule); background: var(--panel); aspect-ratio: 4 / 3; overflow: hidden; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.about { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 4rem); }
+.about p { max-width: var(--measure); margin: 0 0 1em; }
+.skills { margin: 0; }
+.skills dt { font-weight: 700; font-variation-settings: "wdth" 108; margin-top: 1.1rem; }
+.skills dt:first-child { margin-top: 0; }
+.skills dd { margin: 0.2rem 0 0; color: var(--ink-2); }
+
+/* ---------- Placeholder figure (shown until you add a real image) ---------- */
+.ph { display: grid; place-items: center; text-align: center; padding: 1.25rem; height: 100%; min-height: 160px; color: var(--ink-2); font-size: 0.92rem; font-variation-settings: "wdth" 80; border: 1.5px dashed var(--rule); background:
+  repeating-linear-gradient(45deg, transparent 0 10px, color-mix(in srgb, var(--rule) 25%, transparent) 10px 11px); }
+
+/* ---------- Project pages ---------- */
+.back { display: inline-block; margin-top: 1rem; font-variation-settings: "wdth" 85; color: var(--ink-2); }
+
+.project-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: end; padding: clamp(1.5rem, 4vw, 3rem) 0 clamp(1.5rem, 3vw, 2.5rem); }
+.project-head h1 { font-size: clamp(2.2rem, 5.2vw, 3.8rem); }
+.project-head .summary { font-size: clamp(1.08rem, 1.6vw, 1.25rem); color: var(--ink-2); max-width: 52ch; margin: 1rem 0 0; }
+
+/* Title block: the bordered info box from the corner of a drawing */
+.title-block { border: 2px solid var(--ink); display: grid; grid-template-columns: 1fr 1fr; margin: 0; background: var(--panel); font-variation-settings: "wdth" 80; }
+.title-block div { border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 0.45rem 0.65rem 0.55rem; }
+.title-block div:nth-child(2n) { border-right: 0; }
+.title-block .span { grid-column: 1 / -1; border-right: 0; }
+.title-block div:last-child { border-bottom: 0; }
+.title-block dt { font-size: 0.78rem; color: var(--ink-2); line-height: 1.3; }
+.title-block dd { margin: 0.1rem 0 0; font-size: 0.98rem; font-weight: 600; line-height: 1.35; }
+
+.article { padding-bottom: clamp(3rem, 6vw, 5rem); }
+.article > * { max-width: var(--measure); }
+.article > figure, .article > .figure-row { max-width: none; }
+.article h2 { margin: 3rem 0 1rem; }
+.article h3 { margin: 2rem 0 0.6rem; }
+.article p, .article ul, .article ol { margin: 0 0 1em; }
+.article li { margin-bottom: 0.45em; }
+
+figure { margin: 2rem 0; }
+figure .frame { border: 1px solid var(--rule); background: var(--panel); }
+figure .frame.tall { aspect-ratio: 16 / 9; }
+figcaption { font-size: 0.92rem; color: var(--ink-2); margin-top: 0.55rem; font-variation-settings: "wdth" 85; max-width: var(--measure); }
+.figure-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin: 2rem 0; }
+.figure-row figure { margin: 0; }
+.figure-row .frame { aspect-ratio: 4 / 3; }
+
+.diagram { overflow-x: auto; }
+.diagram svg { min-width: 640px; width: 100%; height: auto; display: block; }
+.dg-box { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
+.dg-box.hl { fill: color-mix(in srgb, var(--orange) 18%, var(--paper)); }
+.dg-text { fill: var(--ink); font-family: var(--font); font-size: 15px; font-weight: 650; }
+.dg-sub { fill: var(--ink-2); font-family: var(--font); font-size: 12.5px; }
+.dg-mono { fill: var(--ink-2); font-family: var(--mono); font-size: 11.5px; }
+.dg-line { stroke: var(--ink); stroke-width: 1.4; fill: none; }
+
+/* Problem / fix pairs */
+.fixes { list-style: none; padding: 0; margin: 0; }
+.fixes li { border-left: 3px solid var(--orange); padding: 0.1rem 0 0.1rem 1.1rem; margin-bottom: 1.6rem; }
+.fixes h3 { margin: 0 0 0.35rem; }
+.fixes p { margin: 0 0 0.4em; }
+
+.next-project { border-top: 2px solid var(--ink); padding: 1.5rem 0 0; margin-top: 3rem; font-variation-settings: "wdth" 85; }
+.next-project a { font-size: 1.35rem; font-weight: 700; font-variation-settings: "wdth" 112; display: inline-block; margin-top: 0.2rem; }
+
+/* ---------- Footer ---------- */
+.site-foot { border-top: 1px solid var(--rule); padding: 2rem 0 2.5rem; color: var(--ink-2); font-size: 0.95rem; }
+.site-foot .wrap { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; justify-content: space-between; }
+.site-foot nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 760px) {
+  .hero, .about, .project-head { grid-template-columns: minmax(0, 1fr); }
+  .project-row, .project-row.lead { grid-template-columns: minmax(0, 1fr); }
+  .hero-text p { max-width: none; }
+  .drawing { max-width: 460px; }
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>4-DOF robotic arm | Andrew [Lastname]</title>
+<meta name="description" content="A four-axis robotic arm I designed and built from scratch, with custom cycloidal gearboxes and ROS 2 control.">
+<meta property="og:title" content="4-DOF robotic arm | Andrew [Lastname]">
+<meta property="og:description" content="A four-axis robotic arm I designed and built from scratch, with custom cycloidal gearboxes and ROS 2 control.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦾</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="site-name" href="../index.html">Andrew <span class="fill">Lastname</span></a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#about">About</a>
+      <!-- Put your resume in the same folder as index.html and name it resume.pdf -->
+      <a href="../resume.pdf">Resume</a>
+      <!-- Replace the # with your GitHub profile URL -->
+      <a href="#">GitHub</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <a class="back" href="../index.html#projects">Back to all projects</a>
+  <div class="project-head">
+    <div>
+      <h1>4-DOF robotic arm</h1>
+      <p class="summary">A four-axis arm I designed and built from scratch: custom 20:1 cycloidal reducers on NEMA 17 steppers, a closed-loop driver board in every joint, and control through ROS 2.</p>
+    </div>
+    <dl class="title-block" aria-label="Project details">
+  <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
+  <div><dt>Type</dt><dd>Personal project</dd></div>
+  <div><dt>Timeline</dt><dd><span class="fill">[Month Year]</span> to present</dd></div>
+  <div><dt>Status</dt><dd>In progress</dd></div>
+  <div class="span"><dt>Tools</dt><dd>Fusion 360, PlatformIO, ROS 2 Jazzy, micro-ROS, Docker</dd></div>
+  <div class="span"><dt>Page updated</dt><dd>October 2026</dd></div>
+</dl>
+  </div>
+  <article class="article">
+
+    <figure>
+  <!-- To add your image, replace the whole <div class="ph">…</div> line with:
+       <img src="../images/YOUR-FILE.jpg" alt="Describe what the photo shows"> -->
+  <div class="frame tall"><div class="ph">Add photo: the full arm, side view, on a plain background. This is the most important photo on the site.</div></div>
+  <figcaption>Fig. 1. The assembled arm.</figcaption>
+</figure>
+
+    <h2>Why I built it</h2>
+    <p>I want to work on robot manipulation, and I wanted to understand an arm from the gearbox up rather than only from the software side. So I designed every joint myself, built a driver board into each one, and am bringing it up under ROS 2 one layer at a time. <span class="fill">[Rewrite this in your own words, and add what you wanted the arm to be able to do when it was finished.]</span></p>
+
+    <h2>Mechanical design</h2>
+    <p>Each of the four joints is a NEMA 17 stepper motor driving a custom 20:1 cycloidal reducer. Before committing, I compared harmonic drives and cycloidal drives for this size of arm. I chose cycloidal because <span class="fill">[your reasons, for example: backlash, torque capacity, how easy it was to make, cost]</span>.</p>
+    <p><span class="fill">[Describe how you made the parts (3D printed? machined? which materials?), the arm's reach and payload targets, and anything you redesigned after the first version.]</span> The mechanical assembly is complete.</p>
+    <div class="figure-row">
+      <figure><div class="frame"><div class="ph">Add photo: CAD render or exploded view of one cycloidal reducer</div></div><figcaption>Fig. 2a. Cycloidal reducer, exploded view.</figcaption></figure>
+      <figure><div class="frame"><div class="ph">Add photo: close-up of a finished joint with its motor and board</div></div><figcaption>Fig. 2b. A finished joint with its motor and driver board.</figcaption></figure>
+    </div>
+
+    <h2>Electronics</h2>
+    <p>Every joint has its own SparkFun PD Stepper board. Each board combines an ESP32-S3 microcontroller, a TMC2209 stepper driver, and an AS5600 magnetic encoder that measures the joint's actual position. The boards take power over USB Power Delivery, and the arm now runs from a 12&nbsp;V supply. I write the firmware in VS Code with PlatformIO.</p>
+
+    <h2>Control software</h2>
+    <p>The arm is controlled with ROS 2 Jazzy running in WSL2 on my laptop. Each joint board runs micro-ROS, a version of ROS 2 small enough for a microcontroller, and talks to a micro-ROS agent that bridges it onto the ROS 2 network. To move a joint, I publish a target angle on that joint's topic; the board drives the motor there and publishes the angle its encoder reads back.</p>
+    <figure>
+  <div class="frame diagram" role="img" aria-label="Block diagram: a laptop running ROS 2 in WSL2 talks to a micro-ROS agent in Docker, which connects to four joint driver boards. Each board subscribes to a target angle topic and publishes its measured angle.">
+  <svg viewBox="0 0 900 310" xmlns="http://www.w3.org/2000/svg">
+    <rect class="dg-box" x="20" y="112" width="210" height="86" rx="4"/>
+    <text class="dg-text" x="36" y="142">Laptop</text>
+    <text class="dg-sub" x="36" y="163">Windows 11 + WSL2</text>
+    <text class="dg-sub" x="36" y="181">ROS 2 Jazzy, CycloneDDS</text>
+    <rect class="dg-box" x="300" y="112" width="180" height="86" rx="4"/>
+    <text class="dg-text" x="316" y="142">micro-ROS agent</text>
+    <text class="dg-sub" x="316" y="163">Runs in Docker</text>
+    <text class="dg-sub" x="316" y="181">Bridges ROS 2 to boards</text>
+    <path class="dg-line" d="M230 155 H300"/>
+    <text class="dg-mono" x="236" y="146">DDS</text>
+    <path class="dg-line" d="M480 155 H520 V47 H580 M520 155 V117 H580 M520 155 V187 H580 M520 155 V257 H580"/>
+    <g>
+      <rect class="dg-box hl" x="580" y="20" width="300" height="54" rx="4"/><text class="dg-text" x="596" y="43">Joint 1 board</text><text class="dg-sub" x="596" y="62">ESP32-S3, TMC2209 driver, AS5600 encoder</text>
+      <rect class="dg-box hl" x="580" y="90" width="300" height="54" rx="4"/><text class="dg-text" x="596" y="113">Joint 2 board</text><text class="dg-sub" x="596" y="132">ESP32-S3, TMC2209 driver, AS5600 encoder</text>
+      <rect class="dg-box hl" x="580" y="160" width="300" height="54" rx="4"/><text class="dg-text" x="596" y="183">Joint 3 board</text><text class="dg-sub" x="596" y="202">ESP32-S3, TMC2209 driver, AS5600 encoder</text>
+      <rect class="dg-box hl" x="580" y="230" width="300" height="54" rx="4"/><text class="dg-text" x="596" y="253">Joint 4 board</text><text class="dg-sub" x="596" y="272">ESP32-S3, TMC2209 driver, AS5600 encoder</text>
+    </g>
+    <text class="dg-mono" x="300" y="232">in:  /jointN/target_angle</text>
+    <text class="dg-mono" x="300" y="250">out: /jointN/current_angle</text>
+    <text class="dg-mono" x="300" y="268">type: std_msgs/Float32</text>
+  </svg>
+  </div>
+  <figcaption>Fig. 3. Control architecture. Each joint board runs micro-ROS firmware, listens for a target angle, and reports the angle its encoder measures.</figcaption>
+</figure>
+
+    <h2>Problems I solved along the way</h2>
+    <ul class="fixes">
+      <li>
+        <h3>ROS 2 couldn't reliably find its own nodes</h3>
+        <p>With WSL2 in mirrored networking mode, the default Fast DDS middleware had discovery problems. I switched the ROS 2 middleware to CycloneDDS, which fixed discovery.</p>
+      </li>
+      <li>
+        <h3>The micro-ROS agent had no ARM64 package</h3>
+        <p>My laptop has an ARM64 (Snapdragon) processor, and the usual snap package for the agent doesn't support it. I run the agent in a Docker container instead. USB devices are passed from Windows into WSL2 with usbipd-win, and each board is addressed by its permanent serial ID so the joints can't swap places when they're plugged in in a different order.</p>
+      </li>
+      <li>
+        <h3>The boards negotiated the wrong voltage</h3>
+        <p>The PD Stepper boards use CFG pins to choose which voltage they request over USB Power Delivery. A misconfigured setting meant the charger wasn't supplying the voltage I expected. <span class="fill">[One or two sentences on how you found it and what you changed.]</span></p>
+      </li>
+    </ul>
+
+    <h2>Where it is now</h2>
+    <p>The first major milestone works: publishing a target angle on <code>/joint1/target_angle</code> moves the joint, and the encoder reading on <code>/joint1/current_angle</code> confirms it got there. All four joint boards are now running and visible in ROS 2.</p>
+    <figure>
+      <!-- A short video helps a lot here. Export a 10–20 second clip as MP4 (under ~10 MB), put it in images/, then replace the whole <div class="ph">…</div> line with:
+           <video src="../images/joint-test.mp4" controls muted playsinline loop></video> -->
+      <div class="frame tall"><div class="ph">Add photo: a short video of a joint moving to a commanded angle, ideally with the terminal showing current_angle beside it</div></div>
+      <figcaption>Fig. 4. Closed-loop position control on joint 1.</figcaption>
+    </figure>
+
+    <h2>Next steps</h2>
+    <ul>
+      <li>Generate a URDF (the robot description file ROS uses) from the Fusion 360 model.</li>
+      <li>Use MoveIt 2 to plan coordinated motion across all four joints.</li>
+      <li><span class="fill">[Anything else: a gripper, a demo task, a video of a full pick-and-place]</span></li>
+    </ul>
+
+    <p class="next-project">Next project<br><a href="metal-end-effectors.html">End effectors for robotic forging and casting</a></p>
+  </article>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <span>Andrew <span class="fill">Lastname</span>, mechanical engineering, University of Tennessee, Knoxville</span>
+    <nav aria-label="Contact">
+      <!-- Replace the addresses below with your own -->
+      <a href="mailto:you@example.com">Email</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">GitHub</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
