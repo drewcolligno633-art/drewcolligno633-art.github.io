@@ -17,7 +17,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head">
   <div class="wrap">
-    <a class="site-name" href="../index.html">Andrew <span class="fill">Lastname</span></a>
+    <a class="site-name" href="../index.html">Andrew Collignon</a>
     <nav class="site-nav" aria-label="Main">
       <a href="../index.html#projects">Projects</a>
       <a href="../index.html#about">About</a>
@@ -38,7 +38,7 @@
     <dl class="title-block" aria-label="Project details">
   <div><dt>Role</dt><dd>Sole designer and builder</dd></div>
   <div><dt>Type</dt><dd>Personal project</dd></div>
-  <div><dt>Timeline</dt><dd><span class="fill">[Month Year]</span> to present</dd></div>
+  <div><dt>Timeline</dt><dd>May, 2026 to present</dd></div>
   <div><dt>Status</dt><dd>In progress</dd></div>
   <div class="span"><dt>Tools</dt><dd>Fusion 360, PlatformIO, ROS 2 Jazzy, micro-ROS, Docker</dd></div>
   <div class="span"><dt>Page updated</dt><dd>October 2026</dd></div>
@@ -54,11 +54,11 @@
 </figure>
 
     <h2>Why I built it</h2>
-    <p>I want to work on robot manipulation, and I wanted to understand an arm from the gearbox up rather than only from the software side. So I designed every joint myself, built a driver board into each one, and am bringing it up under ROS 2 one layer at a time. <span class="fill">[Rewrite this in your own words, and add what you wanted the arm to be able to do when it was finished.]</span></p>
+    <p>I want to work on robot manipulation, and I wanted to understand an arm from the gearbox up rather than only from the software side. So I designed every joint myself, built a driver board into each one, and am bringing it up under ROS 2 one layer at a time.</p>
 
     <h2>Mechanical design</h2>
-    <p>Each of the four joints is a NEMA 17 stepper motor driving a custom 20:1 cycloidal reducer. Before committing, I compared harmonic drives and cycloidal drives for this size of arm. I chose cycloidal because <span class="fill">[your reasons, for example: backlash, torque capacity, how easy it was to make, cost]</span>.</p>
-    <p><span class="fill">[Describe how you made the parts (3D printed? machined? which materials?), the arm's reach and payload targets, and anything you redesigned after the first version.]</span> The mechanical assembly is complete.</p>
+    <p>Each of the four joints is a NEMA 17 stepper motor driving a custom 20:1 cycloidal reducer. Before committing, I compared harmonic drives and cycloidal drives for this size of arm. I chose cycloidal because they are easier to manufacture than harmonic drives while still maintaing better backlash resistance than planetary gearboxes.</p>
+    <p>The arm was constructed using both custom 3D-printed parts and off-the-shelf components. The 3D-printed parts were designed in Fusion 360 and printed in PLA. I designed the arm to be able to reach out 1ft and be able to carry 5lbs. The mechanical assembly is complete.</p>
     <div class="figure-row">
       <figure><div class="frame"><div class="ph">Add photo: CAD render or exploded view of one cycloidal reducer</div></div><figcaption>Fig. 2a. Cycloidal reducer, exploded view.</figcaption></figure>
       <figure><div class="frame"><div class="ph">Add photo: close-up of a finished joint with its motor and board</div></div><figcaption>Fig. 2b. A finished joint with its motor and driver board.</figcaption></figure>
@@ -109,7 +109,7 @@
       </li>
       <li>
         <h3>The boards negotiated the wrong voltage</h3>
-        <p>The PD Stepper boards use CFG pins to choose which voltage they request over USB Power Delivery. A misconfigured setting meant the charger wasn't supplying the voltage I expected. <span class="fill">[One or two sentences on how you found it and what you changed.]</span></p>
+        <p>The PD Stepper boards use CFG pins to choose which voltage they request over USB Power Delivery. A misconfigured setting meant the charger wasn't supplying the voltage I expected. I resolved the issue by replacing the faulty power supply.</p>
       </li>
     </ul>
 
@@ -126,7 +126,7 @@
     <ul>
       <li>Generate a URDF (the robot description file ROS uses) from the Fusion 360 model.</li>
       <li>Use MoveIt 2 to plan coordinated motion across all four joints.</li>
-      <li><span class="fill">[Anything else: a gripper, a demo task, a video of a full pick-and-place]</span></li>
+      <li>A full pick and place demonstration.</li>
     </ul>
 
     <p class="next-project">Next project<br><a href="metal-end-effectors.html">End effectors for robotic forging and casting</a></p>
@@ -134,7 +134,7 @@
 </main>
 <footer class="site-foot">
   <div class="wrap">
-    <span>Andrew <span class="fill">Lastname</span>, mechanical engineering, University of Tennessee, Knoxville</span>
+    <span>Andrew Collignon, mechanical engineering, University of Tennessee, Knoxville</span>
     <nav aria-label="Contact">
       <!-- Replace the addresses below with your own -->
       <a href="mailto:you@example.com">Email</a>
