@@ -197,3 +197,12 @@ figcaption { font-size: 0.92rem; color: var(--ink-2); margin-top: 0.55rem; font-
   .hero-text p { max-width: none; }
   .drawing { max-width: 460px; }
 }
+/* Two-column figure grid with matching frame sizes */
+.figure-row.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.figure-row .frame { overflow: hidden; }
+.figure-row .frame img,
+.figure-row .frame video { width: 100%; height: 100%; object-fit: cover; }
+.figure-row .frame video { object-fit: contain; background: #000; }
+@media (max-width: 560px) {
+  .figure-row.grid-2 { grid-template-columns: minmax(0, 1fr); }
+}
